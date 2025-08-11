@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    overflow-x: hidden;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+}
+
+/* Main Heading*/
+h1 {
+    font-weight: 600;
+    font-size: clamp(2rem, 5vw, 4rem);
+    color:rgb(255, 255, 255);
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    margin-bottom: 2rem;
+    text-align: center;
+    letter-spacing: -0.025em;
+
+    display: inline-block; /* Makes the box fit the text */
+    padding: 1rem 15rem; /* Adds space inside the box */
+    background: rgba(0, 0, 0, 0.164); /* Semi-transparent background */
+    border-radius: 20px; /* Rounds the corners */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+    backdrop-filter: blur(10px); /* "Frosted glass" effect */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Drop shadow for depth */
+}
+
+/* Map Container */
+#map-container {
+    width: 100%;
+    max-width: 1400px;
+    background: transparent;
+    position: relative;
+    overflow: visible;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* SVG Map */
+#india-map {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+}
+
+/* State Paths */
+.state {
+    fill: rgba(255, 255, 255, 0.2);
+    stroke: rgba(255, 255, 255, 0.8);
+    stroke-width: 2;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    filter: drop-shadow(0 2px 4px rgba(255, 255, 255, 0.1));
+}
+
+.state:hover {
+    fill: rgba(101, 224, 109, 0.5);
+    stroke: rgba(255, 255, 255, 1);
+    stroke-width: 3;
+    filter: drop-shadow(0 8px 25px rgba(255, 255, 255, 0.6));
+    transform: scale(1.05);
+    transform-origin: center;
+}
+
+.state:active {
+    transform: scale(0.98);
+}
+
+/* Tooltip */
+#tooltip {
+    position: fixed; 
+    display: none;
+    background: rgba(70, 104, 23, 0.451);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 20px;
+    font-weight: 500;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 1000;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    transform: translate(-50%, -100%);
+    margin-top: -10px;
+    transition: left 0.1s ease-out, top 0.1s ease-out;
+}
+
+#tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+    padding: 2rem 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    text-align: center;
+    font-weight: 400;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    #map-container {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem 0.5rem;
+    }
+    
+    #map-container {
+        padding: 1rem;
+    }
+    
+    #tooltip {
+        font-size: 13px;
+        padding: 10px 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    #map-container {
+        padding: 0.8rem;
+    }
+    
+    #tooltip {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+}
+
+/* Loading state */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#map-container {
+    animation: fadeIn 0.6s ease-out;
+}
